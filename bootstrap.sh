@@ -124,3 +124,6 @@ create_symlink "$DOTFILES_DIR/.config" "$HOME/.config"
 create_symlink "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 create_symlink "$DOTFILES_DIR/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 create_symlink "$DOTFILES_DIR/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
+
+print_section "Installing Typescript"
+pnpm install --global typescript
