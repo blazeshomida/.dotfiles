@@ -1,0 +1,69 @@
+# Documentation: https://starship.rs/config/
+# Get editor completions based on the config schema
+'$schema' = 'https://starship.rs/config-schema.json'
+
+format = '''
+  $directory$git_branch$git_status$package$fill$username$os$nodejs$time  
+
+  $character '''
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[ ❯❯ ](bg:#44ffff fg:#ff44ff)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[  ](bg:#ff44ff fg:#44ffff) '
+
+[directory]
+format='[  $path]($style)'
+repo_root_format='[  $repo_root]($repo_root_style)[$path]($style)'
+truncation_length = 4
+truncation_symbol = '…/'
+style = 'fg:#44ffff'
+before_repo_root_style = ''
+repo_root_style = 'fg:#ff66ff underline' 
+
+[fill]
+symbol = ' '
+
+[git_branch]
+format = '[[ | ](#ffffff)$symbol$branch]($style)'
+truncation_length = 4
+truncation_symbol = ''
+style = 'fg:#ff8b33'
+
+[git_status]
+format = "([[ | ](#ffffff)\\[$all_status$ahead_behind\\]]($style) )"
+
+[nodejs]
+format = '[[ | ](#ffffff)$symbol$version]($style)'
+style = 'green'
+version_format = '${major}'
+
+[os]
+format = '[ | ](#ffffff)$symbol'
+disabled = false
+
+[os.symbols]
+Macos = ''
+
+[package]
+format = '[[ | ](#ffffff)$symbol$version]($style)'
+disabled = false
+symbol = '󰏓 '
+version_format = 'v${raw}'
+style = 'fg:#cccc00'
+
+[username]
+format = '[  $user]($style)'
+style_user = 'fg:#cc3333'
+disabled = false
+show_always = true
+
+[time]
+disabled = false
+format = '[[ | ](#ffffff)  $time]($style)'
+time_format = '%T'
+style = 'fg:#cc66ee'

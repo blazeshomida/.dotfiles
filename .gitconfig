@@ -1,0 +1,12 @@
+[init]
+	defaultBranch = main
+[user]
+	name = Blaze Shomida
+	email = 131521446+blazeshomida@users.noreply.github.com 
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDZRj61neOy0V2+JSw7iDy5Y7P5GOGO1e5BVV+FBiDV
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
