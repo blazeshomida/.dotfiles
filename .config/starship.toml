@@ -30,7 +30,7 @@ symbol = ' '
 
 [git_branch]
 format = '[[ | ](#ffffff)$symbol$branch]($style)'
-truncation_length = 4
+truncation_length = 20
 truncation_symbol = ''
 style = 'fg:#ff8b33'
 
