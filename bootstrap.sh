@@ -35,6 +35,7 @@ create_symlink() {
                 echo "Destination '${TEAL}$dest_filename${NC}' is already a symbolic link to '${TEAL}.dotfiles/$src_filename${NC}'. Skipping."
                 return 0
             fi
+            
         fi
 
         # Display a warning message if the destination exists
@@ -103,8 +104,8 @@ print_section() {
 
 print_section "Creating symbolic links for dotfiles"
 create_symlink "$DOTFILES_DIR/.profile" "$HOME/.profile"
-create_symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-create_symlink "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"
+create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
+create_symlink "$DOTFILES_DIR/zsh/.zprofile" "$HOME/.zprofile"
 create_symlink "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
 
 print_section "Checking Homebrew installation"
