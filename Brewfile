@@ -10,6 +10,8 @@ brew "fish"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# Distributed revision control system
+brew "git"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Cross-shell prompt for astronauts
@@ -57,6 +59,7 @@ vscode "dsznajder.es7-react-js-snippets"
 vscode "eamodio.gitlens"
 vscode "esbenp.prettier-vscode"
 vscode "figma.figma-vscode-extension"
+vscode "github.vscode-pull-request-github"
 vscode "gruntfuggly.todo-tree"
 vscode "kamen.noctis-high-contrast"
 vscode "mattpocock.ts-error-translator"
