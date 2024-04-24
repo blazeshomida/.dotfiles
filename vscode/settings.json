@@ -73,6 +73,9 @@
   "[jsonc]": {
     "prettier.trailingComma": "none"
   },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
 
   /* File and Source Management */
   "files.autoSave": "afterDelay",
