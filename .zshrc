@@ -22,6 +22,9 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
+alias pn='pnpm'
+alias px='pnpm dlx'
 # pnpm end
 
 # CodeWhisperer post block. Keep at the bottom of this file.
