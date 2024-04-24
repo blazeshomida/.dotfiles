@@ -10,13 +10,22 @@ alias get_brew_formula='brew leaves | cat'
 alias get_brew_cask='brew ls --cask | cat'
 alias get_brew='echo "# HOMEBREW\n## Formula" && get_brew_formula && echo "\n## Cask" && get_brew_cask'
 
-
 # Must be at the end: 
 # https://formulae.brew.sh/formula/zsh-autosuggestions
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # https://formulae.brew.sh/formula/zsh-syntax-highlighting
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# pnpm
+export PNPM_HOME="/Users/shomida_dev/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # CodeWhisperer post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
+
 
 

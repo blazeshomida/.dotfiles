@@ -10,6 +10,8 @@ brew "fish"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# Fast, disk space efficient package manager
+brew "pnpm"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Shell extension to navigate your filesystem faster
