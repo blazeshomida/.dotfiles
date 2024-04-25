@@ -1,20 +1,48 @@
 #! /bin/bash
 
-# Define aliases
-alias zshload='source $HOME/.zshrc'
-alias zshopen='code $HOME/.zshrc'
+# Config
+alias zprofile='code $HOME/.zprofile'
+alias zprofilel='source $HOME/.zprofile && clear'
+alias zshrc='code $HOME/.zshrc'
+alias zshrcl='source $HOME/.zshrc && clear'
+alias dotfiles='code $HOME/.dotfiles'
 
+# Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ....='cd ../../..'
 
-alias ls='ls --color="always"'
-alias l='ls -lFh'
-alias la='ls -lFhA'
-alias ll='ls -lA -h'
+# System
+alias ls='ls --color=always -Fh'
+alias l='ls -l'
+alias la='l -A'
+alias pwd='pwd | pbcopy'
 
+alias mkdir='mkdir -p'
+alias mv='mv -i'
+alias rm='rm -i'
+alias grep='grep --color=auto -i'
+alias sudo='sudo -e'
+
+alias cd='z' # Using zoxide (for more zoxide aliases go to functions/zoxide.sh)
+
+# Executables
+alias makex='chmod +x'
+alias makex-='chmod -x'
+
+# pnpm
+alias pn="pnpm"
+alias pnx="pnpm dlx"
+
+# Git
+alias g='git'
+alias gs='g status'
+alias ga='g add'
+alias gaa='g add .'
+alias gc='g commit'
+alias gcm='gc -m'
+
+# Homebrew
 alias get_brew_formula="brew leaves | cat"
 alias get_brew_cask="brew ls --cask | cat"
 alias get_brew="echo 'Formula' && get_brew_formula && echo '\nCask' && get_brew_cask"
-
-alias pn="pnpm"
-alias px="pnpm dlx"
