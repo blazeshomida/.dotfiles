@@ -9,6 +9,7 @@ eval "$(fzf --zsh)"
 source $HOME/.dotfiles/aliases.sh
 source $HOME/.dotfiles/functions/zoxide.sh
 source $HOME/.dotfiles/functions/dev.sh
+source $HOME/.dotfiles/functions/git.sh
 
 # Must be at the end:
 # https://formulae.brew.sh/formula/zsh-autosuggestions
