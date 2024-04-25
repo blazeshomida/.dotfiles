@@ -2,13 +2,13 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "ca1ff531c94640c0c42107b84ffcb6952b21144d"
+        "revision": "73715a1d4ccf465204215e958de91daf79e25a8a"
       },
       "homebrew/services": {
         "revision": "a6fcf4f1ce20c6e01a0ff051074e7e9d30a887e1"
       },
       "supabase/tap": {
-        "revision": "056ceb1e6405fa769960e72ac5a6c20dc001ffdf"
+        "revision": "3fb3dc285d6ca4c96ffbb2f63d017e4194175bc1"
       },
       "homebrew/cask-fonts": {
         "revision": "5dbe07c7e101165698b5f60ffb0b72d438410e7e"
@@ -500,7 +500,7 @@
         }
       },
       "raycast": {
-        "version": "1.72.0",
+        "version": "1.72.1",
         "options": {
           "full_name": "raycast"
         }
