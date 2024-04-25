@@ -4,6 +4,8 @@ tap "homebrew/services"
 tap "supabase/tap"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # Command-line fuzzy finder written in Go
@@ -59,6 +61,7 @@ vscode "dsznajder.es7-react-js-snippets"
 vscode "eamodio.gitlens"
 vscode "esbenp.prettier-vscode"
 vscode "figma.figma-vscode-extension"
+vscode "foxundermoon.shell-format"
 vscode "github.vscode-pull-request-github"
 vscode "gruntfuggly.todo-tree"
 vscode "kamen.noctis-high-contrast"
