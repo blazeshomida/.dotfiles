@@ -3,7 +3,7 @@
 DEV_DIR="$HOME/dev"
 
 function get_dev_projects {
-  zoxide query -lsa | awk '{print $2}' | grep -v -e "node_modules" -e "^$DEV_DIR$" | grep "^$DEV_DIR" | sed "s#$DEV_DIR/##g"
+  zoxide query -la | grep -v -e "node_modules" -e "^$DEV_DIR$" | grep "^$DEV_DIR" | sed "s#$DEV_DIR/##g"
 }
 
 function dev {
