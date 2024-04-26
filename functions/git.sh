@@ -5,12 +5,14 @@
 function find_commit {
   local commit_hash
   commit_hash=$(
-    git log --oneline --color="always" --format="%C(magenta)%h %C(cyan)%s" |
-      fzf --ansi --nth="2.." --query="$1" \
-        --cycle --prompt='Search for a commit: ' \
+    git log --oneline --color="always" --format="%C(yellow)%h %C(magenta)%ar %C(cyan)%s" |
+      fzf --ansi --with-nth="2,3.." --nth='3..' --query="$1" \
+        --cycle --no-sort --prompt='Search for a commit: ' \
         --padding='2' \
         --preview-label='[ Git Commit Preview ]' \
         --preview='git show --no-patch {1} | 
+            grep -v -E "^(commit|Author|Date|Merge:)" | 
+            sed -e "s/^[[:space:]]*//; /^$/d" |
             bat --color="always" --style="grid,snip" && 
             git show --format="" {1} | 
             diff-so-fancy'
