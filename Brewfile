@@ -8,8 +8,6 @@ brew "bash"
 brew "bat"
 # Good-lookin' diffs with diff-highlight and more
 brew "diff-so-fancy"
-# Modern, maintained replacement for ls
-brew "eza"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # Command-line fuzzy finder written in Go
@@ -18,6 +16,8 @@ brew "fzf"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Cross-shell prompt for astronauts

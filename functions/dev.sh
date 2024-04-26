@@ -8,9 +8,10 @@ function get_dev_projects {
 
 function dev_fzf {
   fzf --query="$1" --cycle \
+    --no-sort \
     --preview="echo '  {}' && 
-    eza --color='always' --icons='always' --git-ignore --ignore-glob='node_modules' --tree --level='2' $DEV_DIR/{} | 
-    awk '(NR>1){print}' | bat --color='always' --style='grid,snip'"
+    lsd --color='always' --icon='always' --group-directories-first --ignore-glob='node_modules' --tree --depth='2' $DEV_DIR/{} | 
+    awk '(NR>1){print}'"
 }
 
 function dev {
