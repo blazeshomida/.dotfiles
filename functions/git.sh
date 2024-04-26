@@ -6,13 +6,13 @@ function find_commit {
   local commit_hash
   commit_hash=$(
     git log --oneline --color="always" --format="%C(magenta)%h %C(cyan)%s" |
-      fzf --ansi --nth="2.." --query="$query" \
+      fzf --ansi --nth="2.." --query="$1" \
         --cycle --prompt='Search for a commit: ' \
         --padding='2' \
         --preview-label='[ Git Commit Preview ]' \
-        --preview='git show {1} --no-patch | 
+        --preview='git show --no-patch {1} | 
             bat --color="always" --style="grid,snip" && 
-            git show {1} --format="" | 
+            git show --format="" {1} | 
             diff-so-fancy'
   ) &&
     echo "Selected commit: $commit_hash" | sed -Ee 's/ :[a-zA-Z]+://g' &&
