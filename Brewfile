@@ -6,6 +6,8 @@ tap "supabase/tap"
 brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Good-lookin' diffs with diff-highlight and more
+brew "diff-so-fancy"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # Command-line fuzzy finder written in Go
