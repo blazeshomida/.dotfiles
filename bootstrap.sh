@@ -4,7 +4,7 @@
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # Function to create symbolic links
-create_symlink() {
+function create_symlink {
     # Get the source and destination paths
     local source=$1
     local destination=$2
@@ -95,19 +95,24 @@ create_symlink() {
         echo "${GREEN}Success:${NC} Created symbolic link '${TEAL}$dest_filename${NC}'"
     fi
 }
-
+function is_valid_dir_item {
+    # Checks if valid item; not to match */. or */..
+    [[ -f "$1" || -d "$1" ]] && [[ "$1" != "$2/." ]] && [[ "$1" != "$2/.." ]]
+}
 # Function to create symlinks for files in a directory
-create_symlinks_in_dir() {
+function create_symlinks_in_dir {
     local directory=$1
     local destination=$2
 
-    for file in "$directory"/*; do
-        create_symlink "$file" "$destination/$(basename "$file")"
+    for item in "$directory"/{.,}*; do
+        if is_valid_dir_item "$item" "$directory"; then
+            create_symlink "$item" "$destination/$(basename "$item")"
+        fi
     done
 }
 
 # Function to print section titles and separators
-print_section() {
+function print_section {
     local title=$1
     echo "-------------------"
     echo "$title"
@@ -116,9 +121,8 @@ print_section() {
 
 print_section "Creating symbolic links for dotfiles"
 create_symlink "$DOTFILES_DIR/.profile" "$HOME/.profile"
-create_symlink "$DOTFILES_DIR/zsh/.zprofile" "$HOME/.zprofile"
-create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
 create_symlink "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
+create_symlinks_in_dir "$DOTFILES_DIR/zsh" "$HOME"
 
 print_section "Checking Homebrew installation"
 if ! command -v brew &>/dev/null; then
