@@ -34,78 +34,35 @@ function create_symlink {
         if [ -L "$destination" ]; then
             # Check if the destination points to the same source file
             if [ "$(readlink "$destination")" = "$source" ]; then
-                echo "Destination '${TEAL}$dest_filename${NC}' is already a symbolic link to '${TEAL}.dotfiles/$src_filename${NC}'. Skipping."
+                echo "${TEAL}Note:${NC} Destination '$dest_filename' is already linked to '$src_filename'. Skipping."
                 return 0
-            fi
-
-        fi
-
-        # Display a warning message if the destination exists
-        echo "${YELLOW}Warning:${NC} '${YELLOW}$dest_filename${NC}' already exists."
-
-        # Display contents of the current file/destination if they are different
-        if [ -f "$destination" ]; then
-            echo "Current content of '$dest_filename':"
-            # Diff the source and destination files, highlighting differences with color
-            diff_output=$(diff --unified=0 --color=always "$source" "$destination")
-            if [ -n "$diff_output" ]; then
-                echo "$diff_output"
-            fi
-        elif [ -d "$destination" ]; then
-            echo "Current content of '$dest_filename' directory:"
-            # Diff the source and destination directories, highlighting differences with color
-            diff_output=$(diff --recursive --unified=0 --color=always "$source" "$destination")
-            if [ -n "$diff_output" ]; then
-                echo "$diff_output"
-            fi
-        fi
-
-        # Prompt user for action
-        read -rp "Do you want to overwrite (o), append (a), or cancel (c)? " choice
-        case "$choice" in
-        o | O)
-            # Overwrite the existing destination
-            ln -snf "$source" "$destination"
-            echo "${GREEN}Success:${NC} Overwrote existing destination '${TEAL}$dest_filename${NC}'"
-            ;;
-        a | A)
-            # Append the existing destination if it's a directory
-            if [ -d "$destination" ]; then
-                # Copy the contents of the destination directory to the source directory
-                cp -r "$destination"/* "$source"
-                # Update the symbolic link
-                ln -snf "$source" "$destination"
-                echo "${GREEN}Success:${NC} Appended existing directory '${TEAL}$dest_filename${NC}'"
             else
-                # Append the contents of the destination file to the source file
-                cat "$destination" >>"$source"
-                # Update the symbolic link
-                ln -snf "$source" "$destination"
-                echo "${GREEN}Success:${NC} Appended existing file '${TEAL}$dest_filename${NC}'"
+                echo "${YELLOW}Warning:${NC} '$dest_filename' is a symbolic link but points to a different source. Consider manual intervention."
+                return 1
             fi
-            ;;
-        *)
-            # Cancel the operation
-            echo "Operation canceled."
-            ;;
-        esac
+        else
+            echo "${YELLOW}Warning:${NC} '$dest_filename' already exists and is not a link. Consider manual intervention."
+            return 1
+        fi
     else
         # Create symbolic link if destination doesn't exist
         ln -sn "$source" "$destination"
         echo "${GREEN}Success:${NC} Created symbolic link '${TEAL}$dest_filename${NC}'"
     fi
 }
+
 function is_valid_dir_item {
-    # Checks if valid item; not to match */. or */..
-    [[ -f "$1" || -d "$1" ]] && [[ "$1" != "$2/." ]] && [[ "$1" != "$2/.." ]]
+    # Checks if valid item; not to match */. or */.. or /*
+    [[ -f "$item" || -d "$item" ]] && ! [[ "$item" =~ \.\.?$|\*$ ]]
 }
+
 # Function to create symlinks for files in a directory
 function create_symlinks_in_dir {
     local directory=$1
     local destination=$2
 
     for item in "$directory"/{.,}*; do
-        if is_valid_dir_item "$item" "$directory"; then
+        if is_valid_dir_item "$item" && is_valid_dir_item "$destination"; then
             create_symlink "$item" "$destination/$(basename "$item")"
         fi
     done
