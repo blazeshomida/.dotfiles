@@ -38,13 +38,32 @@ alias pnx="pnpm dlx"
 
 # Git
 alias g='git'
-alias gs='g status'
-alias ga='g add'
-alias gaa='g add .'
-alias gc='g commit'
-alias gcm='gc -m'
+alias gs='git status'
+alias ga='git add'
+alias gaa='git add .'
+alias gc='git commit'
+alias gcm='git commit -m'
 
 # Homebrew
 alias get_brew_formula="brew leaves | cat"
 alias get_brew_cask="brew ls --cask | cat"
 alias get_brew="echo 'Formula' && get_brew_formula && echo '\nCask' && get_brew_cask"
+
+alias myalias="find \$DOTFILES_DIR -type f -not -path '*/bootstrap.sh' -not -path '*/.config/*' -not -path '*/.git/*' -exec awk '/^alias/ {  gsub(/\47/, \"\42\"); print }' {} +"
+alias myfunctions="find \$DOTFILES_DIR -type f  -not -path '*/bootstrap.sh' -not -path '*/.config/*' -not -path '*/.git/*' -exec awk '/^function/  {  sub(/function /,\"\"); sub(/[[:space:]]{/, \"\");  print  }' {} +"
+
+
+
+# TODO: Still a work in progres
+manf() {
+  local section_line_number
+  section_line_number=$(man "$1" | awk '/^[A-Z]+/ && !/\(1\)$/ {print NR " " $1}' |
+    fzf --with-nth="1.." | awk '{print $1}')
+
+  local next_section_line_number
+  next_section_line_number=$(man "$1" | awk -v section_line="$section_line_number" 'NR > section_line && /^[A-Z]+/ {print NR; exit}')
+
+  local section_distance=$((next_section_line_number - section_line_number))
+
+  man "$1" | awk -v section_line="$section_line_number" -v section_distance="$section_distance" 'NR >= section_line && NR < section_line + section_distance {print}' | bat -l man
+}
