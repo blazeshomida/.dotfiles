@@ -1,27 +1,21 @@
+# $DOTFILES_DIR comes from .zprofile which gets loaded before zshrc
+
 # CodeWhisperer pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 
 function for_each {
   local condition=$1
-  local action=$2
-  shift 2 # Remove the first two arguments (condition and action)
+  local command=$2
+  shift 2 # Remove the condition and command from the arguments list
   local items=("$@")
 
   for item in "${items[@]}"; do
-    if $condition "$item"; then
-      $action "$item"
-    else
-      echo "Skipping: '$item' does not meet the condition: $condition"
+    # Check the condition with the item using eval with careful quoting
+    if eval "$condition"; then
+      # Execute the command with the item if the condition is true
+      eval "$command "
     fi
   done
-}
-
-function is_file {
-  [[ -f $1 ]]
-}
-
-function exists {
-  [[ -e $1 ]]
 }
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -30,10 +24,10 @@ eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"
 
 # Usage of globbing instead of parsing ls output
-if [[ -d "$HOME/.dotfiles" ]]; then
-  source "$HOME/.dotfiles/aliases.sh"
-  local fn_dir=("$HOME/.dotfiles/functions"/**/*)
-  for_each is_file source "${fn_dir[@]}"
+if [[ -d "$DOTFILES_DIR" ]]; then
+  source "$DOTFILES_DIR/aliases.sh"
+  local fn_dir=("$DOTFILES_DIR/functions"/**/*)
+  for_each '[[ -f $item ]]' 'source $item' "${fn_dir[@]}"
 else
   echo "Please move .dotfiles to $HOME or update the paths in .zshrc"
 fi
