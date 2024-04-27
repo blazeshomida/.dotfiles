@@ -13,9 +13,11 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # System
-alias ls='ls --color=always -Fh'
-alias l='ls -l'
-alias la='l -A'
+alias ls='lsd --color="always" -h'
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -A'
+alias lla='ls -la'
 alias pwd='pwd | pbcopy'
 
 alias mkdir='mkdir -p'
