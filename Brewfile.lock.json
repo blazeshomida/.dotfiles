@@ -5,10 +5,10 @@
         "revision": "73715a1d4ccf465204215e958de91daf79e25a8a"
       },
       "homebrew/services": {
-        "revision": "a6fcf4f1ce20c6e01a0ff051074e7e9d30a887e1"
+        "revision": "8710ee0ebc7e82dcc607ba298c6d2545850e1e88"
       },
       "supabase/tap": {
-        "revision": "3fb3dc285d6ca4c96ffbb2f63d017e4194175bc1"
+        "revision": "f98e712d20350bf0df55652a20dee349b2361448"
       },
       "homebrew/cask-fonts": {
         "revision": "5dbe07c7e101165698b5f60ffb0b72d438410e7e"
@@ -382,7 +382,7 @@
         }
       },
       "supabase/tap/supabase": {
-        "version": "1.163.2",
+        "version": "1.163.6",
         "bottle": false
       },
       "pnpm": {
