@@ -14,12 +14,13 @@
 function find_commit {
   local commit_hash
   commit_hash=$(
-    git log --oneline --color="always" --format="%C(yellow)%h %C(magenta)%ar %C(cyan)%s" |
-      fzf --ansi --with-nth="2,3.." --nth='3..' --query="$1" \
+    git log --format="__GIT__%h__MARKER__ %h %C(magenta)%ar %C(cyan)%s %b" --color="always" |
+      awk 'BEGIN { RS="__GIT__[[:xdigit:]]{7}__MARKER__"; FS="\n";} {gsub(/\n/, ""); print }' |
+      fzf --ansi --header-lines="1" --with-nth="2.." --nth='2..' --query="$1" \
         --cycle --no-sort --prompt='Search for a commit: ' \
         --padding='2' \
         --preview-label='[ Git Commit Preview ]' \
-        --preview="git show --no-patch {1} | 
+        --preview=" git show --no-patch {1} | 
           awk 'NR > 1 {
             if (NR >= 6) { gsub(/^[[:blank:]]+|[[:blank:]]+$/,\"\"); print }
             if (NR < 6 && !/^(Merge|Author|Date)/ && !/^[[:blank:]]*$/) { 
@@ -27,7 +28,7 @@ function find_commit {
             }
           }' | 
           bat --style='plain' --color='always' --language='COMMIT_EDITMSG' && 
-          git show --format='' {1} | 
+           git show --format='' {1} | 
           diff-so-fancy"
   ) &&
     echo "Selected commit: $commit_hash" | sed -E 's/ :[a-zA-Z]+://g' &&
