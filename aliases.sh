@@ -45,6 +45,9 @@ alias gc='git commit'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gdm='git diff --diff-algorithm="minimal"'
+alias gl='git log'
+alias gl1='git log --oneline'
+alias gr='git rebase'
 
 alias ghpr="gh pr"
 alias ghprc="gh pr create"
