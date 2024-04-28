@@ -156,5 +156,15 @@
     "key": "ctrl+cmd+r",
     "command": "workbench.action.terminal.rename",
     "when": "terminalFocus"
+  },
+  {
+    "key": "alt+cmd+j",
+    "command": "editor.action.insertCursorBelow",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+cmd+k",
+    "command": "editor.action.insertCursorAbove",
+    "when": "editorTextFocus"
   }
 ]
