@@ -18,6 +18,8 @@ brew "gh"
 brew "git"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
+# Platform built on V8 to build network applications
+brew "node"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Cross-shell prompt for astronauts
