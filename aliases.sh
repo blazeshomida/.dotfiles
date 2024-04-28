@@ -43,6 +43,8 @@ alias ga='git add'
 alias gaa='git add .'
 alias gc='git commit'
 alias gcm='git commit -m'
+alias gd='git diff'
+alias gdm='git diff --diff-algorithm="minimal"'
 
 alias ghpr="gh pr"
 alias ghprc="gh pr create"
