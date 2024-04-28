@@ -44,6 +44,10 @@ alias gaa='git add .'
 alias gc='git commit'
 alias gcm='git commit -m'
 
+alias ghpr="gh pr"
+alias ghprc="gh pr create"
+alias ghprm="gh pr merge"
+
 # Homebrew
 alias get_brew_formula="brew leaves | cat"
 alias get_brew_cask="brew ls --cask | cat"
@@ -51,8 +55,6 @@ alias get_brew="echo 'Formula' && get_brew_formula && echo '\nCask' && get_brew_
 
 alias myalias="find \$DOTFILES_DIR -type f -not -path '*/bootstrap.sh' -not -path '*/.config/*' -not -path '*/.git/*' -exec awk '/^alias/ {  gsub(/\47/, \"\42\"); print }' {} +"
 alias myfunctions="find \$DOTFILES_DIR -type f  -not -path '*/bootstrap.sh' -not -path '*/.config/*' -not -path '*/.git/*' -exec awk '/^function/  {  sub(/function /,\"\"); sub(/[[:space:]]{/, \"\");  print  }' {} +"
-
-
 
 # TODO: Still a work in progres
 manf() {
