@@ -51,6 +51,7 @@ function create_symlink() {
     fi
 }
 
+
 function is_valid_dir_item() {
     local item=$1
     # Checks if valid item; not to match */. or */.. or /*

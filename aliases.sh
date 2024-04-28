@@ -44,9 +44,11 @@ alias gaa='git add .'
 alias gc='git commit'
 alias gcm='git commit -m'
 
+
 alias ghpr="gh pr"
 alias ghprc="gh pr create"
 alias ghprm="gh pr merge"
+
 
 # Homebrew
 alias get_brew_formula="brew leaves | cat"
@@ -68,4 +70,4 @@ manf() {
   local section_distance=$((next_section_line_number - section_line_number))
 
   man "$1" | awk -v section_line="$section_line_number" -v section_distance="$section_distance" 'NR >= section_line && NR < section_line + section_distance {print}' | bat -l man
-}
+
