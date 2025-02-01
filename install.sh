@@ -118,9 +118,10 @@ install_packages() {
     case "$pm" in
     "Homebrew")
         if ! command_exists "brew"; then
-            echo "Homebrew Not Installed"
+            log_warn "Homebrew Not Installed"
         fi
-        brew bundle install --file=./Brewfile
+        brew bundle install --file=./Brewfile \
+            || log_error "Error installing from Brewfile." && exit 1;
         log_success "Homebrew packages installed successfully"
         ;;
     *) echo "Unknown" ;;
@@ -131,6 +132,8 @@ main() {
     log_info "Starting setup..."
     install_packages "$pm"
     # TODO: Stow packages
+
+    exit 0
 }
 
 main
