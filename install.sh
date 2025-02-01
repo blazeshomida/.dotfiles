@@ -42,8 +42,8 @@ log_debug() { echo -e "${MAGENTA}[DEBUG]${RESET} $1"; }
 log_success() { echo -e "${GREEN}[SUCCESS]${RESET} $1"; }
 log_warning() { echo -e "${YELLOW}[WARNING]${RESET} $1"; }
 log_error() { echo -e "${RED}[ERROR]${RESET} $1"; }
-
-echo -e "${CYAN}
+highlight() { printf "${CYAN}$1${RESET}"; }
+highlight "
 +-------------------------------------------------------------------------------------------------------------+
 |                                                                                                             |
 |     ██████╗ ██╗      █████╗ ███████╗███████╗    ███████╗██╗  ██╗ ██████╗ ███╗   ███╗██╗██████╗  █████╗      |
@@ -56,32 +56,114 @@ echo -e "${CYAN}
 +-------------------------------------------------------------------------------------------------------------+
 |                                        Dotfiles Setup                                                       |
 +-------------------------------------------------------------------------------------------------------------+
-${RESET}"
+"
 
 # TODO: Test with other OS
 # NOTE: Only tested with MacOs (Darwin) currently
 get_os() {
-        echo $(uname -s)
+    uname -s
 }
 
 # TODO: Add additional package managers
 get_pm() {
-        local os=$1
-        case "$os" in
-                Darwin) echo Homebrew ;;
-                *) echo Unknow ;;
-        esac
-
+    local os=$1
+    case "$os" in
+    "Darwin") echo "Homebrew" ;;
+    *) echo "Unknown" ;;
+    esac
 }
 
+# Check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# TODO: Additional package management strategy
+install_packages() {
+    local pm=$1
+    case "$pm" in
+    "Homebrew")
+        if command_exists "brew"; then
+            local brew_packages
+            # Homebrew Formulae (CLI Tools & Utilities)
+            brew_packages=(
+                # CLI Utilities
+                "bat"     # Clone of cat(1) with syntax highlighting and Git integration
+                "eza"     # Modern, maintained replacement for ls
+                "fzf"     # Command-line fuzzy finder written in Go
+                "ripgrep" # Search tool like grep and The Silver Searcher
+                "tldr"    # Simplified and community-driven man pages
+                "zoxide"  # Shell extension to navigate your filesystem faster
+
+                # Development Tools
+                "docker"                # Pack, ship and run any application as a lightweight container
+                "gh"                    # GitHub command-line tool
+                "git"                   # Distributed revision control system
+                "node"                  # Platform built on V8 to build network applications
+                "pnpm"                  # Fast, disk space efficient package manager
+                "supabase/tap/supabase" # Supabase CLI
+
+                # Shell & Terminal Enhancements
+                "fnm"        # Fast and simple Node.js version manager
+                "neovim"     # Ambitious Vim-fork focused on extensibility and agility
+                "shellcheck" # Static analysis and lint tool for (ba)sh scripts
+                "shfmt"      # Autoformat shell script source code
+                "starship"   # Cross-shell prompt for astronauts
+                "stow"       # Organize software neatly under a single directory tree (e.g. /usr/local)
+                "tmux"       # Terminal multiplexer
+            )
+
+            local cask_packages
+            # Homebrew Casks (GUI Applications)
+            cask_packages=(
+                # Password Management
+                "1password"     # Password manager that keeps all passwords secure behind one password
+                "1password-cli" # Command-line interface for 1Password
+
+                # AI & Productivity Tools
+                "amazon-q" # AI-powered productivity tool for the command-line
+                "raycast"  # Control your tools with a few keystrokes
+
+                # Fonts
+                "font-fira-code-nerd-font" # Fira Code with Nerd Font glyphs
+
+                # Terminal & Shell Enhancements
+                "ghostty"  # Terminal emulator that uses platform-native UI and GPU acceleration
+                "orbstack" # Replacement for Docker Desktop
+
+                # Code Editors
+                "visual-studio-code" # Open-source code editor
+                "webstorm"           # JavaScript IDE
+                "zed"                # Multiplayer code editor
+            )
+            for package in "${brew_packages[@]}"; do
+                log_info "Installing formulae $(highlight "$package")"
+            done
+            for package in "${cask_packages[@]}"; do
+                log_info "Installing cask $(highlight "$package")"
+            done
+            log_success "Homebrew packages installed successfully"
+        else
+            echo "Homebrew Not Installed"
+        fi
+        ;;
+    *) echo "Unknown" ;;
+    esac
+}
+
+
+
 main() {
-        log_info "Starting setup..."
-        local os=$(get_os)
-        log_info "Detected OS: ${BOLD}${CYAN}$os${RESET}"
-        local pm=$(get_pm $os)
-        log_info "Detected Package Manager: ${BOLD}${CYAN}$pm"
-        # TODO: Install packages
-        # TODO: Stow packages
+    log_info "Starting setup..."
+    local os
+    os=$(get_os)
+    log_info "Detected OS: $(highlight "$os")"
+    local pm
+    pm=$(get_pm "$os")
+    log_info "Detected Package Manager: $(highlight "$pm")"
+    install_packages "$pm"
+    # TODO: Stow packages
 }
 
 main
+
