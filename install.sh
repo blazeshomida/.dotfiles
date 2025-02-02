@@ -43,19 +43,11 @@ log_success() { echo -e "${GREEN}[SUCCESS]${RESET} $1"; }
 log_warning() { echo -e "${YELLOW}[WARNING]${RESET} $1"; }
 log_error() { echo -e "${RED}[ERROR]${RESET} $1"; }
 
-pipe_log() {
-    local exit_code
+log_pipe() {
+    "$@" 2> >(while read -r line; do log_error "$line"; done) \
+    1> >(while read -r line; do log_info "$line"; done)
 
-    "$@" 2>&1 | while IFS= read -r line; do
-        if [[ "$line" == *"Error:"* || "$line" == *"failed"* || "$line" == *"not found"* ]]; then
-            log_error "$line"
-        else
-            log_info "$line"
-        fi
-    done
-
-    exit_code=${PIPESTATUS[0]}  # Capture the actual exit code
-    return $exit_code
+    return "${PIPESTATUS[0]}"
 }
 
 highlight() { printf "${CYAN}$1${RESET}"; }
@@ -136,9 +128,8 @@ install_packages() {
         if ! command_exists "brew"; then
             log_warn "Homebrew Not Installed"
         fi
-       
-        # Use pipe_log to handle both stdout and stderr correctly
-        if ! pipe_log brew bundle install --file=./Brewfile; then
+
+        if ! log_pipe brew bundle install --file=./Brewfile; then
             log_error "Failed to install Homebrew packages"
             return 1
         fi
